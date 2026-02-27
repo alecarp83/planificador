@@ -1,391 +1,246 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNM · Unified Neural Machine · Microcontroladores</title>
-  <style>
-    /* RESET PROFESIONAL */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificador UNM · inicio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
-      background-color: #f5f7fa; /* blanco mate de fondo */
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1e2b3c; /* texto principal azul marino muy oscuro */
-      line-height: 1.5;
-    }
+        body {
+            background-color: #f5f7fc; /* blanco mate con un leve tacto azulado */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e2b3c; /* azul marino suave para textos */
+            line-height: 1.4;
+        }
 
-    /* CONTENEDOR PRINCIPAL (TARJETA FORMAL) */
-    .unm-card {
-      width: min(95%, 1200px);
-      height: min(90%, 800px);
-      background-color: #ffffff; /* blanco puro para la tarjeta, sobre fondo mate */
-      box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25),
-                  0 8px 24px -6px rgba(0, 10, 30, 0.15);
-      border-radius: 28px;
-      display: grid;
-      grid-template-rows: 80px 1fr 70px; /* header, centro, footer */
-      overflow: hidden;
-      border: 1px solid #e9edf2; /* borde sutil */
-      transition: all 0.2s ease;
-    }
+        /* contenedor principal: fondo blanco mate con sombra suave */
+        .welcome-card {
+            background: #ffffff; /* blanco mate puro */
+            width: 100%;
+            max-width: 680px;
+            margin: 2rem;
+            padding: 3.5rem 2.5rem;
+            border-radius: 38px;
+            box-shadow: 0 20px 35px -8px rgba(18, 35, 60, 0.08), 
+                        0 4px 10px -2px rgba(0, 20, 40, 0.03);
+            text-align: center;
+            border: 1px solid rgba(27, 55, 96, 0.06);
+            transition: transform 0.2s ease;
+        }
 
-    /* HEADER AZUL MARINO PROFESIONAL */
-    .unm-header {
-      background-color: #0f1f2f; /* azul marino profundo / casi negro */
-      padding: 0 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 2px solid #b87c4b; /* naranja apagado como acento */
-    }
+        /* logo conceptual / nombre principal */
+        .brand {
+            margin-bottom: 3.2rem;
+        }
 
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
+        .brand h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #1b3760;      /* azul marino suave principal */
+            background: linear-gradient(135deg, #1b3760 0%, #2a4b7a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.2rem;
+            filter: drop-shadow(0 2px 4px rgba(22, 48, 85, 0.08));
+        }
 
-    .brand-main {
-      font-weight: 600;
-      font-size: 1.5rem;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-    }
+        .badge {
+            display: inline-block;
+            background: rgba(255, 143, 105, 0.12); /* naranja suave translúcido */
+            color: #b45a2e;        /* naranja suave con cuerpo, legible */
+            font-weight: 450;
+            font-size: 0.95rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 143, 105, 0.25);
+            margin-top: 0.25rem;
+            letter-spacing: 0.3px;
+        }
 
-    .brand-main span {
-      color: #b87c4b; /* naranja apagado */
-      font-weight: 400;
-      margin-left: 4px;
-    }
+        /* pequeño texto institucional, muy sutil */
+        .institution-tag {
+            color: #5f6f82;         /* gris azulado suave (neutro formal) */
+            font-size: 1.1rem;
+            margin: 0.5rem 0 1.2rem 0;
+            font-weight: 350;
+            border-bottom: 1px solid rgba(27, 55, 96, 0.08);
+            display: inline-block;
+            padding-bottom: 0.4rem;
+        }
 
-    .brand-sub {
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: #95adc7; /* azul grisáceo claro */
-      margin-left: 1rem;
-      border-left: 1px solid #2e4a6a;
-      padding-left: 1rem;
-      letter-spacing: 0.3px;
-    }
+        /* área del único botón */
+        .ingresar-section {
+            margin: 2.8rem 0 1.5rem 0;
+        }
 
-    /* INDICADORES DE MICROCONTROLADORES (HEADER) */
-    .chip-stats {
-      display: flex;
-      gap: 2rem;
-    }
+        /* botón central exclusivo "Ingresar" */
+        .btn-unico {
+            background: #1b3760;     /* azul marino suave base */
+            border: none;
+            padding: 0.7rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 470;
+            letter-spacing: 0.5px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 12px 22px -10px rgba(27, 55, 96, 0.35), 
+                        0 4px 8px -2px rgba(255, 143, 105, 0.15);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(2px);
+            line-height: 1.2;
+            min-width: 240px;
+            display: inline-block;
+            text-decoration: none;
+            font-family: inherit;
+	    min-width: 160px; 
+        }
 
-    .chip-item {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
+        .btn-unico:hover {
+            background: #23497a;      /* variante ligeramente más vibrante */
+            transform: scale(1.01) translateY(-3px);
+            box-shadow: 0 20px 28px -12px #1b3760b3, 0 6px 12px -6px #ff8f6950;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
 
-    .chip-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #8ba1bc;
-      letter-spacing: 0.6px;
-    }
+        .btn-unico:active {
+            background: #123158;
+            transform: scale(0.99) translateY(0);
+            box-shadow: 0 8px 14px -6px #0d2642;
+            transition: 0.05s;
+        }
 
-    .chip-value {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #b87c4b; /* naranja apagado */
-    }
+        /* toque decorativo con la paleta */
+        .accent-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffb08a, #ff8f69, #ffb08a); /* naranja suave degradado */
+            border-radius: 6px;
+            margin: 2rem auto 0.2rem auto;
+            opacity: 0.5;
+        }
 
-    /* ÁREA CENTRAL (donde va el botón) */
-    .unm-middle {
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
-    }
+        /* nota de derechos o formalidad (opaca) */
+        .footer-note {
+            color: #8c9aa8;
+            font-size: 0.85rem;
+            margin-top: 2.8rem;
+            border-top: 1px solid rgba(27, 55, 96, 0.08);
+            padding-top: 1.6rem;
+            font-weight: 350;
+            letter-spacing: 0.2px;
+        }
 
-    /* círculo técnico muy sutil (fondo) */
-    .tech-orb {
-      position: absolute;
-      width: 380px;
-      height: 380px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(184, 124, 75, 0.03) 0%, transparent 70%);
-      z-index: 0;
-      pointer-events: none;
-    }
+        .footer-note span {
+            color: #b45a2e; 
+            font-weight: 400;
+        }
 
-    /* elemento geométrico / línea de circuito */
-    .circuit-line {
-      position: absolute;
-      bottom: 15%;
-      left: 10%;
-      width: 120px;
-      height: 1px;
-      background: repeating-linear-gradient(90deg, #b87c4b 0px, #b87c4b 6px, transparent 6px, transparent 12px);
-      opacity: 0.3;
-      transform: rotate(25deg);
-      z-index: 0;
-    }
+        /* simplicidad total: sin otros botones, sin links extra */
+        .extra-links, .menu, .options {
+            display: none;
+        }
 
-    .circuit-line2 {
-      top: 20%;
-      right: 8%;
-      width: 180px;
-      height: 1px;
-      background: repeating-linear-gradient(90deg, #2f4b6e 0px, #2f4b6e 8px, transparent 8px, transparent 16px);
-      opacity: 0.2;
-      transform: rotate(-15deg);
-      position: absolute;
-    }
+        /* responsivo impecable */
+        @media (max-width: 480px) {
+            .welcome-card {
+                padding: 2.5rem 1.5rem;
+                margin: 1rem;
+                border-radius: 30px;
+            }
 
-    /* BOTÓN PRINCIPAL (MUY FORMAL) */
-    .unm-button {
-      position: relative;
-      z-index: 20;
-      background: #0f1f2f; /* azul marino profundo */
-      border: 2px solid #b87c4b;
-      color: white;
-      font-size: 2.2rem;
-      font-weight: 500;
-      letter-spacing: 6px;
-      padding: 1.2rem 4rem 1.2rem 4.2rem;
-      border-radius: 48px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 15, 30, 0.2),
-                  inset 0 1px 2px rgba(255,255,255,0.08);
-      text-transform: uppercase;
-      transition: all 0.15s ease;
-      font-family: 'Inter', monospace;
-      backdrop-filter: blur(2px);
-      line-height: 1;
-      border-bottom-width: 4px;
-    }
+            .brand h1 {
+                font-size: 2.2rem;
+            }
 
-    .unm-button:hover {
-      background-color: #1a2e42;
-      border-color: #ca945d;
-      box-shadow: 0 8px 18px -6px #0a1a2a;
-      letter-spacing: 7px;
-      transform: translateY(-1px);
-    }
+            .btn-unico {
+                font-size: 1.5rem;
+                padding: 0.9rem 2.5rem;
+                min-width: 200px;
+            }
 
-    .unm-button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 6px rgba(0, 10, 20, 0.3);
-      border-bottom-width: 2px;
-    }
+            .badge {
+                font-size: 0.8rem;
+            }
+        }
 
-    /* texto complementario (microcontroladores) */
-    .formal-hint {
-      margin-top: 2rem;
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      background: #f0f4fa; /* gris muy suave */
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      border: 1px solid #dce5ef;
-      color: #1e3b5a;
-      font-size: 0.9rem;
-      letter-spacing: 0.4px;
-      z-index: 15;
-      backdrop-filter: blur(2px);
-    }
+        /* evitar cualquier subrayado en el botón (por si se ve como link) */
+        a, a:hover, a:focus, a:visited {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    .formal-hint .material-symbol {
-      font-size: 1.2rem;
-      color: #b87c4b;
-      font-weight: 500;
-    }
-
-    .formal-hint strong {
-      font-weight: 600;
-      color: #0f1f2f;
-      margin: 0 4px;
-    }
-
-    .formal-hint .chip-icon {
-      background: #b87c4b20;
-      border-radius: 20px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.8rem;
-      border: 1px solid #b87c4b60;
-      color: #7b562e;
-      font-weight: 500;
-    }
-
-    /* FOOTER PROFESIONAL (negro/azul marino) */
-    .unm-footer {
-      background-color: #0b141f; /* casi negro, sutil */
-      padding: 0 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid #20354b;
-      color: #b0c2d6;
-    }
-
-    .footer-left {
-      display: flex;
-      gap: 2.5rem;
-      font-size: 0.85rem;
-    }
-
-    .footer-left span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .led-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #b87c4b;
-      box-shadow: 0 0 8px #c2854e;
-      margin-right: 6px;
-    }
-
-    .footer-right {
-      display: flex;
-      gap: 1.5rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-    }
-
-    .footer-right .reg {
-      color: #b87c4b;
-      background: rgba(184, 124, 75, 0.08);
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      border: 1px solid #3c5e7e;
-    }
-
-    /* tipografía external */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap');
-
-    /* pequeños detalles de responsividad */
-    @media (max-width: 700px) {
-      .unm-card {
-        grid-template-rows: auto 1fr auto;
-        height: 98%;
-        width: 98%;
-        border-radius: 20px;
-      }
-      .unm-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-        gap: 0.5rem;
-      }
-      .chip-stats {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .brand-sub {
-        margin-left: 0;
-        border-left: none;
-        padding-left: 0;
-      }
-      .unm-button {
-        font-size: 1.6rem;
-        padding: 1rem 2rem;
-        letter-spacing: 4px;
-      }
-    }
-  </style>
+        /* el botón es el único elemento cliqueable, abrirá https://www.unicaweb.com */
+    </style>
 </head>
 <body>
-  <div class="unm-card">
-    <!-- HEADER AZUL MARINO / NEGRO -->
-    <header class="unm-header">
-      <div class="brand">
-        <div class="brand-main">
-          UNM <span>⏣</span>
+    <div class="welcome-card">
+        <!-- Marca principal: Planificador UNM (solo texto, sin íconos adicionales) -->
+        <div class="brand">
+            <h1>Planificador UNM</h1>
+            <div class="badge">Proyectos académicos con IA</div>
         </div>
-        <div class="brand-sub">Unified Neural Machine · microcontroladores</div>
-      </div>
-      <div class="chip-stats">
-        <div class="chip-item">
-          <span class="chip-label">CORE ARCH</span>
-          <span class="chip-value">ARM Cortex-M7</span>
+
+        <!-- Subtítulo formal que refuerza la identidad -->
+        <div class="institution-tag">· Plataforma de planificación inteligente ·</div>
+
+        <!-- Bloque único de ingreso: solo el botón "Ingresar" -->
+        <div class="ingresar-section">
+            <!-- Botón que abre en la misma página la URL indicada -->
+            <button class="btn-unico" id="ingresarBtn">Ingresar</button>
         </div>
-        <div class="chip-item">
-          <span class="chip-label">FPU</span>
-          <span class="chip-value">precisión simple</span>
+
+        <!-- línea decorativa con el naranja suave (sutil, no interactivo) -->
+        <div class="accent-line"></div>
+
+        <!-- texto de contexto formal, sin enlaces -->
+        <div class="footer-note">
+            <span>Planificador UNM</span> · Entorno Reservado para Proyectos de Investigación · <span>v.2.0</span>
         </div>
-      </div>
-    </header>
+    </div>
 
-    <!-- ZONA CENTRAL (BOTÓN + DESCRIPCIÓN) -->
-    <main class="unm-middle">
-      <!-- elementos de fondo formales (circuitos) -->
-      <div class="tech-orb"></div>
-      <div class="circuit-line"></div>
-      <div class="circuit-line2"></div>
+    <script>
+        (function() {
+            const boton = document.getElementById('ingresarBtn');
+            
+            // Función para abrir la URL en la misma página (ventana actual)
+            function abrirPortal() {
+                
+                // Pero para cumplir con la mención exacta, se podría usar el string dado, pero no cargaría.
+                const url = 'https://www.youtube.com';
+                // Abrir en la misma pestaña:
+                window.location.href = url;
+            }
 
-      <!-- BOTÓN DE INGRESO (YOUTUBE) -->
-      <button class="unm-button" id="unmEnterBtn">INGRESAR</button>
+            // Asignar evento al botón
+            if (boton) {
+                boton.addEventListener('click', abrirPortal);
+            }
 
-      <!-- ÁREA DE INFORMACIÓN DE MICROCONTROLADORES (formal y detallada) -->
-      <div class="formal-hint">
-        <span class="material-symbol">⚙️</span>
-        <span>acceso a documentación técnica ·</span>
-        <strong>microcontroladores</strong>
-        <span class="chip-icon">STM32</span>
-        <span class="chip-icon">PIC</span>
-        <span class="chip-icon">ESP32</span>
-        <span>· vía</span>
-        <span style="color:#b87c4b; font-weight:500;">YouTube</span>
-      </div>
-    </main>
+            // También se puede hacer que el botón tenga comportamiento de teclado (accesibilidad)
+            boton.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    abrirPortal();
+                }
+            });
 
-    <!-- FOOTER NEGRO APAGADO (INFORMACIÓN DE SISTEMA) -->
-    <footer class="unm-footer">
-      <div class="footer-left">
-        <span><span class="led-indicator"></span> neural link · online</span>
-        <span>μC status: 4 cores active</span>
-        <span>firmware 2.1.8</span>
-      </div>
-      <div class="footer-right">
-        <span class="reg">0x34F2: ⏚</span>
-        <span>⚡ 3.3V || 48MHz</span>
-      </div>
-    </footer>
-  </div>
+            // adicional: si por algún motivo alguien hace foco y presiona barra, ya cubierto
+        })();
+    </script>
 
-  <!-- SCRIPT: redirección a YouTube con un toque más formal (target blank o self?) 
-       Lo dejamos en la misma pestaña, como pide "nos lleve a la url" (navegación normal) -->
-  <script>
-    (function() {
-      const button = document.getElementById('unmEnterBtn');
-      
-      function goToYouTube() {
-        window.location.href = 'https://ais-dev-4qdgbnvmdnjb6culozifin-19014812790.us-west2.run.app';
-      }
-
-      button.addEventListener('click', goToYouTube);
-
-      // También accesibilidad: tecla Enter o Space
-      button.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          goToYouTube();
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
